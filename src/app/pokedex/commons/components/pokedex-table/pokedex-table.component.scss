@@ -1,0 +1,15 @@
+tr {
+    vertical-align: middle;
+}
+
+::ng-deep ul li {
+    // border-color: #0d6efd !important;
+     a {
+        text-decoration: none;
+     }
+}
+
+::ng-deep .dropdown {
+    min-width: 100%;
+    height: 200px !important;
+}

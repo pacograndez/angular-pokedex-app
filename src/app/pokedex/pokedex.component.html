@@ -1,1 +1,18 @@
-<pk-table [isLoading]="isLoading"></pk-table>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h5>Pokemons encontrados: {{ totalItems }}</h5>
+    </div>
+    <div class="col-md-6">
+      <pk-table
+        [isLoading]="isLoading"
+        [totalItems]="totalItems"
+        [listPokemos]="listPokemos"
+        [listNames]="listNames"
+        (filter)="onFilterPokemon($event)"
+        (hasFilter)="this.hasFilter = $event"
+        (pageChanged)="onPageChanged($event)"
+      ></pk-table>
+    </div>
+  </div>
+</div>

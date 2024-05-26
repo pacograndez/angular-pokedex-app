@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { IPagination, IPokemon } from '@commons/interfaces';
+import { IBase, IPagination, IPokemon, IType } from '@commons/interfaces';
 import { ENVIRONMENT } from '@environments/environment';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { ENVIRONMENT } from '@environments/environment';
 export class PokedexService {
   constructor(private httpClient: HttpClient) {}
 
-  getAllPokemonList(): Observable<IPagination<IPokemon>> {
+  public getAllPokemonList(): Observable<IPagination<IBase>> {
     return this.httpClient.get<any>(`${ENVIRONMENT.apiUrl}?limit=1302`).pipe(
       map((res) => ({
         totalItems: res.count,
@@ -19,10 +19,10 @@ export class PokedexService {
     );
   }
 
-  getPokemonDetail(name: string): Observable<IPokemon> {
+  public getPokemonDetail(name: string): Observable<IPokemon> {
     return this.httpClient.get<any>(`${ENVIRONMENT.apiUrl}/${name}`).pipe(
       map((res) => ({
-        id: res.id,
+        id: res.id.toString(),
         name: res.name,
         abilities: res.abilities,
         baseExperience: res.base_experience,
@@ -30,10 +30,21 @@ export class PokedexService {
         cries: res.cries,
         height: res.height,
         weight: res.weight,
-        types: res.types,
+        types: this.setPokemonTypes(res.types),
         stats: res.stats,
-        image: res.sprites.other['dream_world']['front_default'],
+        image: res.sprites['front_default'], // .other['dream_world']['front_default'],
       }))
     );
+  }
+
+  private setPokemonTypes(arr: Array<any>): Array<IType> {
+    let types: Array<IType> = [];
+    arr.map((r) => {
+      types.push({
+        id: r.type.url.split('/')[6],
+        name: r.type.name,
+      });
+    });
+    return types;
   }
 }

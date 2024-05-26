@@ -1,1 +1,54 @@
-<p>pokedex-table works!</p>
+<form [formGroup]="pokedexTablePresenter.form">
+  <div class="row">
+    <div class="col-12">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="Buscar por nombre"
+          formControlName="name"
+          [typeahead]="listNames"
+          [isAnimated]="true"
+          [typeaheadScrollable]="true"
+        />
+        <div class="input-group-text"><i class="bi bi-search"></i></div>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="table-responsive">
+  <table class="table text-center">
+    <thead>
+      <tr>
+        <th scope="col"># Código</th>
+        <th scope="col">Avatar</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Tipo(s)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dataPokemons" (click)="onSelectecPokemon(item)">
+        <th scope="row">{{ item.id | codePokedex }}</th>
+        <td><img [src]="item.image" /></td>
+        <td>
+          <b>{{ item.name | titlecase }}</b>
+        </td>
+        <td>
+          <div *ngFor="let item of item.types">
+            <span
+              class="badge rounded-pill text-bg-primary w-100"
+              [ngClass]="getTypeColor(item.name)"
+              >{{ item.name | titlecase }}</span
+            >
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination
+    class="justify-content-center"
+    [totalItems]="totalItems"
+    [itemsPerPage]="6"
+    [maxSize]="5"
+    (pageChanged)="onPageChanged($event)"
+  ></pagination>
+</div>

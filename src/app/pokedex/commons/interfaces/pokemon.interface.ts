@@ -29,8 +29,8 @@ export interface ICries {
 }
 
 export interface IType {
-  slot: number;
-  type: IBase;
+  id: string;
+  name: string;
 }
 
 export interface IStats {
@@ -42,4 +42,10 @@ export interface IStats {
 export interface IPagination<T> {
   totalItems: number;
   results: Array<T>;
+}
+
+export interface IPageChanged {
+  page: number;
+  startItem: number;
+  endItem: number;
 }
