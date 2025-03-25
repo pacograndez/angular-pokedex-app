@@ -25,9 +25,9 @@ jobs:
 
     steps:
     - name: Checkout
-    - uses: actions/checkout@v4.2.2
+      uses: actions/checkout@v4.2.2
     - name: Setup Node.js ${{ matrix.node-version }}
-    - uses: actions/setup-node@v4
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
@@ -42,7 +42,7 @@ jobs:
     - name: Build App
     - run: npm run build:prod
     - name: Deploy to GitHub Pages
-    - uses: crazy-max/ghaction-github-pages@v4.1.0
+      uses: crazy-max/ghaction-github-pages@v4.1.0
       with:
         build_dir: dist/pokedex-app
       env: 
