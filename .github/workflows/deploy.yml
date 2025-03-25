@@ -43,7 +43,7 @@ jobs:
       run: npm run lint
     
     - name: Run Test
-      run: npm test:ci
+      run: npm run test:ci
     
     - name: Build App
       run: npm run build:prod
