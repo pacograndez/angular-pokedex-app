@@ -2,3 +2,17 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer base {
+  @font-face {
+    font-family: 'Pokemon Classic';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(assets/font/pokemon-classic.ttf) format('truetype');
+  }
+}
+
+body {
+  font-family: 'Pokemon Classic', sans-serif;
+}
