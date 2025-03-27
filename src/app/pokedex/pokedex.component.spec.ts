@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PokedexComponent } from './pokedex.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PokedexComponent', () => {
   let component: PokedexComponent;
@@ -8,7 +9,7 @@ describe('PokedexComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [PokedexComponent]
+      imports: [PokedexComponent, HttpClientTestingModule]
     });
     fixture = TestBed.createComponent(PokedexComponent);
     component = fixture.componentInstance;
