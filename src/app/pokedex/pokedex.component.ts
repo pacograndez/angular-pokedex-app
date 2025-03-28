@@ -1,27 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { PokedexService } from './commons/services';
 import { IPokemonBase } from './commons/interfaces';
 import { PokemonCardComponent } from './commons/components';
+import { PokedexPresenter } from './pokedex.presenter';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'pk-pokedex',
   standalone: true,
-  imports: [PokemonCardComponent, NgFor, NgIf],
+  imports: [PokemonCardComponent, NgFor, NgIf, ReactiveFormsModule],
   templateUrl: './pokedex.component.html',
-  styles: []
+  styles: [],
+  providers: [PokedexPresenter]
 })
 export class PokedexComponent implements OnInit {
   public dataList: IPokemonBase[];
+  public dataFilter: IPokemonBase[];
   public currentList: IPokemonBase[];
 
-  public constructor(private readonly pokedexService: PokedexService) {
+  private pokemonToShow: number;
+  private maxIndex: number;
+
+  public constructor(
+    private readonly pokedexService: PokedexService,
+    public readonly pokedexPresenter: PokedexPresenter
+  ) {
     this.dataList = [];
+    this.dataFilter = [];
     this.currentList = [];
+    this.pokemonToShow = 0;
+    this.maxIndex = 14;
   }
 
   public ngOnInit(): void {
     this.getPokemonList();
+    this.listenNameChanges();
   }
 
   private getPokemonList(): void {
@@ -51,10 +65,47 @@ export class PokedexComponent implements OnInit {
         completedCount++;
 
         if (completedCount === totalTypes) {
-          this.currentList = this.dataList;
+          this.dataFilter = [...this.dataList];
+          this.updateCurrentList();
         }
       });
     });
-    // this.currentList = this.dataList;
+  }
+
+  private listenNameChanges(): void {
+    this.pokedexPresenter.filter$.subscribe((v) => {
+      this.dataFilter = this.dataList.filter((item) => item.name.replaceAll('-', '').includes(v.trim()));
+      this.maxIndex = 0;
+      this.increaseMaxIndex(15);
+      this.updateCurrentList();
+    });
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  public onWindowScroll(): void {
+    this.addPokemonToListAfterScroll();
+  }
+
+  private updateCurrentList(): void {
+    this.currentList = this.dataFilter.slice(this.pokemonToShow, this.maxIndex);
+  }
+
+  private addPokemonToListAfterScroll(): void {
+    const scrollY: number = window.scrollY;
+    const scrollHeight: number = document.documentElement.scrollHeight;
+    const clientHeight: number = document.documentElement.clientHeight;
+
+    if (scrollY + 100 >= scrollHeight - clientHeight) {
+      this.increaseMaxIndex(15);
+      this.updateCurrentList();
+    }
+  }
+
+  private increaseMaxIndex(increase: number): void {
+    if (this.maxIndex + increase <= this.dataList.length) {
+      this.maxIndex += increase;
+    } else {
+      this.maxIndex = this.dataList.length - 1;
+    }
   }
 }
