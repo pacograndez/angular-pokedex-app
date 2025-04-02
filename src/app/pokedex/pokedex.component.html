@@ -1,8 +1,8 @@
 <div class="container px-4 mx-auto">
-  <div class="fixed w-full top-0 left-0 bg-[#F6F8FC] px-4 sm:px-8 py-6 z-10">
-    <div class="w-full max-w-screen-md mx-auto">
+  <div class="fixed w-full top-0 left-0 z-10 px-4 lg:px-28 xl:px-60 2xl:px-[368px]">
+    <div class="w-full mx-auto bg-[#F6F8FC] shadow shadow-[#F6F8FC] p-4">
       <img
-        class="block sm:mx-auto"
+        class="block mx-auto my-4"
         src="assets/img/pokedex-banner.png"
         alt="pokedex banner" />
 
@@ -42,3 +42,50 @@
     </div>
   </div>
 </div>
+
+<!--  <div class="container px-4">
+  <div class="flex">
+    <div class="fixed top-0 w-full max-w-[770px] bg-[#F6F8FC] z-10">
+      <div class="w-full max-w-[770px]">
+        <img
+          class="block sm:mx-auto"
+          src="assets/img/pokedex-banner.png"
+          alt="pokedex banner" />
+  
+          <form [formGroup]="pokedexPresenter.form">
+            <div class="flex items-center h-14 bg-white p-4 rounded-[10px] mt-6">
+              <input
+                class="w-full focus-visible:outline-none text-xs"
+                placeholder="Busca a Pikachu, Dito u otro Pokemon"
+                formControlName="name" />
+              <div
+                class="size-10 rounded-[10px] flex items-center justify-center bg-[#FF5350] shadow-[5px_5px_15px] shadow-[#FF5350]">
+                <svg
+                  class="size-6 stroke-[4] stroke-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+  
+    <div class="w-full max-w-screen-md mt-60 sm:mt-72">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <ng-container *ngFor="let item of currentList">
+          <div class="col-span-1">
+            <pk-pokemon-card [pokemon]="item"></pk-pokemon-card>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+ </div> -->

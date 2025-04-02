@@ -2,7 +2,7 @@
   class="relative w-full h-full rounded-[20px] py-4 px-2 sm:px-4 group hover:shadow-2xl hover:cursor-pointer hover:transition-all duration-300"
   [ngClass]="cardTypeClass">
   <img
-    class="absolute top-1/2 left-1/2 transform: -translate-y-2/4 -translate-x-2/4"
+    class="absolute top-1/2 left-1/2 transform: -translate-y-2/4 -translate-x-2/4 max-h-full"
     src="assets/img/pokeball-icon-4.png"
     alt="pokeball icon 4" />
   <div class="relative">
@@ -19,7 +19,7 @@
             </div>
           </ng-container>
         </div>
-        <span class="block text-center text-[8px] sm:text-xs font-bold text-gray-500"
+        <span class="block text-end text-[8px] sm:text-xs font-bold text-gray-500"
           >No. <span class="text-xs sm:text-base">{{ pokemon.id | zeroPad }}</span></span
         >
       </div>
