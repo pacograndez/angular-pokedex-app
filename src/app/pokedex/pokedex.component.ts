@@ -30,7 +30,7 @@ export class PokedexComponent implements OnInit {
     this.dataFilter = [];
     this.currentList = [];
     this.pokemonToShow = 0;
-    this.maxIndex = 14;
+    this.maxIndex = 15;
   }
 
   public ngOnInit(): void {
@@ -74,7 +74,7 @@ export class PokedexComponent implements OnInit {
 
   private listenNameChanges(): void {
     this.pokedexPresenter.filter$.subscribe((v) => {
-      this.dataFilter = this.dataList.filter((item) => item.name.replaceAll('-', '').includes(v.trim()));
+      this.dataFilter = this.dataList.filter((item) => item.name.replaceAll('-', '').includes(v.toLowerCase().trim()));
       this.maxIndex = 0;
       this.increaseMaxIndex(15);
       this.updateCurrentList();
